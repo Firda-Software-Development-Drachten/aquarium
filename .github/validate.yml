@@ -1,0 +1,29 @@
+# Controleert elke pull request en elke push naar main.
+# Werkt ook veilig voor pull requests vanuit forks: de workflow mag alleen lezen.
+name: validate
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Code ophalen
+        uses: actions/checkout@v5
+
+      - name: Python instellen
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Vissen controleren
+        run: python tools/validate_fish.py
+
+      - name: Tests draaien
+        run: python -m unittest discover tools/tests
