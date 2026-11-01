@@ -30,7 +30,7 @@ PLACEHOLDER_PAGE = """<!doctype html>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Digitaal aquarium</title>
+  <title>Aquarium</title>
   <style>
     body { font-family: system-ui, sans-serif; background: #0b3d5c; color: #ffffff;
            margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 16px; }
@@ -40,7 +40,7 @@ PLACEHOLDER_PAGE = """<!doctype html>
 </head>
 <body>
   <main>
-    <h1>Digitaal aquarium</h1>
+    <h1>Aquarium</h1>
     <p>Het aquarium volgt nog. Er zwemmen al {count} vis(sen) in de wachtrij.</p>
     <p><a href="maker/">Ontwerp je eigen vis in de Vissenmaker</a></p>
   </main>

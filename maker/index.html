@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vissenmaker</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Zonder JavaScript werken de knoppen niet, dus dan verbergen we ze. -->
+  <noscript><style>.buttons { display: none; }</style></noscript>
+</head>
+<body>
+  <main class="maker">
+    <header class="intro">
+      <h1>Vissenmaker</h1>
+      <p>Ontwerp je eigen vis voor het <a href="../">Aquarium</a>. Je ziet je vis meteen in het voorbeeld.</p>
+    </header>
+
+    <!-- Het voorbeeld. De vis is gemaakt van een paar div's; style.css tekent hem. -->
+    <section class="tank" aria-label="Voorbeeld van je vis">
+      <div class="fish">
+        <div class="fish-tail"></div>
+        <div class="fish-body">
+          <div class="fish-fin fish-fin-top"></div>
+          <div class="fish-fin fish-fin-bottom"></div>
+          <div class="fish-skin"></div>
+          <div class="fish-eye"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- De waarden van de keuzerondjes zijn precies de ids uit shared/options.json.
+         tools/check_maker.py controleert dat. -->
+    <form id="fish-form" class="choices">
+      <fieldset>
+        <legend>Over je vis</legend>
+        <div class="fields">
+          <div class="field">
+            <label for="name">Naam van je vis</label>
+            <input type="text" id="name" name="name" maxlength="20" required autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="maker">Jouw voornaam of bijnaam</label>
+            <input type="text" id="maker" name="maker" maxlength="30" required autocomplete="off">
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Lichaam</legend>
+        <input type="radio" name="body" id="body-round" value="round" checked>
+        <label for="body-round">Rond</label>
+        <input type="radio" name="body" id="body-long" value="long">
+        <label for="body-long">Langwerpig</label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Vinnen</legend>
+        <input type="radio" name="fins" id="fins-small" value="small" checked>
+        <label for="fins-small">Klein</label>
+        <input type="radio" name="fins" id="fins-pointy" value="pointy">
+        <label for="fins-pointy">Puntig</label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Patroon</legend>
+        <input type="radio" name="pattern" id="pattern-none" value="none" checked>
+        <label for="pattern-none">Geen</label>
+        <input type="radio" name="pattern" id="pattern-stripes" value="stripes">
+        <label for="pattern-stripes">Strepen</label>
+      </fieldset>
+
+        <fieldset class="swatches">
+          <legend>Kleur lichaam</legend>
+          <input type="radio" name="bodyColor" id="body-color-ff8800" value="#ff8800" checked>
+          <label for="body-color-ff8800" style="--swatch: #ff8800">Oranje</label>
+          <input type="radio" name="bodyColor" id="body-color-ffd23f" value="#ffd23f">
+          <label for="body-color-ffd23f" style="--swatch: #ffd23f">Geel</label>
+          <input type="radio" name="bodyColor" id="body-color-e63946" value="#e63946">
+          <label for="body-color-e63946" style="--swatch: #e63946">Rood</label>
+          <input type="radio" name="bodyColor" id="body-color-ff7eb6" value="#ff7eb6">
+          <label for="body-color-ff7eb6" style="--swatch: #ff7eb6">Roze</label>
+          <input type="radio" name="bodyColor" id="body-color-3a86ff" value="#3a86ff">
+          <label for="body-color-3a86ff" style="--swatch: #3a86ff">Blauw</label>
+          <input type="radio" name="bodyColor" id="body-color-2bb673" value="#2bb673">
+          <label for="body-color-2bb673" style="--swatch: #2bb673">Groen</label>
+          <input type="radio" name="bodyColor" id="body-color-ffffff" value="#ffffff">
+          <label for="body-color-ffffff" style="--swatch: #ffffff">Wit</label>
+          <input type="radio" name="bodyColor" id="body-color-222222" value="#222222">
+          <label for="body-color-222222" style="--swatch: #222222">Zwart</label>
+        </fieldset>
+
+        <fieldset class="swatches">
+          <legend>Kleur vinnen</legend>
+          <input type="radio" name="finsColor" id="fins-color-ff8800" value="#ff8800">
+          <label for="fins-color-ff8800" style="--swatch: #ff8800">Oranje</label>
+          <input type="radio" name="finsColor" id="fins-color-ffd23f" value="#ffd23f">
+          <label for="fins-color-ffd23f" style="--swatch: #ffd23f">Geel</label>
+          <input type="radio" name="finsColor" id="fins-color-e63946" value="#e63946">
+          <label for="fins-color-e63946" style="--swatch: #e63946">Rood</label>
+          <input type="radio" name="finsColor" id="fins-color-ff7eb6" value="#ff7eb6">
+          <label for="fins-color-ff7eb6" style="--swatch: #ff7eb6">Roze</label>
+          <input type="radio" name="finsColor" id="fins-color-3a86ff" value="#3a86ff">
+          <label for="fins-color-3a86ff" style="--swatch: #3a86ff">Blauw</label>
+          <input type="radio" name="finsColor" id="fins-color-2bb673" value="#2bb673">
+          <label for="fins-color-2bb673" style="--swatch: #2bb673">Groen</label>
+          <input type="radio" name="finsColor" id="fins-color-ffffff" value="#ffffff" checked>
+          <label for="fins-color-ffffff" style="--swatch: #ffffff">Wit</label>
+          <input type="radio" name="finsColor" id="fins-color-222222" value="#222222">
+          <label for="fins-color-222222" style="--swatch: #222222">Zwart</label>
+        </fieldset>
+
+        <fieldset class="swatches">
+          <legend>Kleur patroon</legend>
+          <input type="radio" name="patternColor" id="pattern-color-ff8800" value="#ff8800">
+          <label for="pattern-color-ff8800" style="--swatch: #ff8800">Oranje</label>
+          <input type="radio" name="patternColor" id="pattern-color-ffd23f" value="#ffd23f">
+          <label for="pattern-color-ffd23f" style="--swatch: #ffd23f">Geel</label>
+          <input type="radio" name="patternColor" id="pattern-color-e63946" value="#e63946">
+          <label for="pattern-color-e63946" style="--swatch: #e63946">Rood</label>
+          <input type="radio" name="patternColor" id="pattern-color-ff7eb6" value="#ff7eb6">
+          <label for="pattern-color-ff7eb6" style="--swatch: #ff7eb6">Roze</label>
+          <input type="radio" name="patternColor" id="pattern-color-3a86ff" value="#3a86ff">
+          <label for="pattern-color-3a86ff" style="--swatch: #3a86ff">Blauw</label>
+          <input type="radio" name="patternColor" id="pattern-color-2bb673" value="#2bb673">
+          <label for="pattern-color-2bb673" style="--swatch: #2bb673">Groen</label>
+          <input type="radio" name="patternColor" id="pattern-color-ffffff" value="#ffffff">
+          <label for="pattern-color-ffffff" style="--swatch: #ffffff">Wit</label>
+          <input type="radio" name="patternColor" id="pattern-color-222222" value="#222222" checked>
+          <label for="pattern-color-222222" style="--swatch: #222222">Zwart</label>
+        </fieldset>
+
+      <fieldset>
+        <legend>Grootte</legend>
+        <input type="radio" name="size" id="size-075" value="0.75">
+        <label for="size-075">Klein</label>
+        <input type="radio" name="size" id="size-100" value="1.0" checked>
+        <label for="size-100">Normaal</label>
+        <input type="radio" name="size" id="size-150" value="1.5">
+        <label for="size-150">Groot</label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Snelheid</legend>
+        <input type="radio" name="speed" id="speed-075" value="0.75">
+        <label for="speed-075">Langzaam</label>
+        <input type="radio" name="speed" id="speed-100" value="1.0" checked>
+        <label for="speed-100">Normaal</label>
+        <input type="radio" name="speed" id="speed-150" value="1.5">
+        <label for="speed-150">Snel</label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Gedrag</legend>
+        <input type="radio" name="behavior" id="behavior-calm" value="calm" checked>
+        <label for="behavior-calm">Rustig</label>
+        <input type="radio" name="behavior" id="behavior-curious" value="curious">
+        <label for="behavior-curious">Nieuwsgierig</label>
+      </fieldset>
+    </form>
+
+    <section class="result" aria-labelledby="result-title">
+      <h2 id="result-title">Je visbestand</h2>
+      <noscript>
+        <p>Zet JavaScript aan om je visbestand te maken. Het ontwerpen werkt ook zonder.</p>
+      </noscript>
+      <pre id="fish-json"></pre>
+      <div class="buttons">
+        <button type="button" id="copy-button">Kopiëren</button>
+        <button type="button" id="download-button">Downloaden</button>
+      </div>
+      <p id="message" role="status"></p>
+      <p>
+        Zet dit bestand in de map <code>fish/</code> en maak een pull request.
+        Hoe dat werkt, lees je in
+        <a href="https://github.com/Firda-Software-Development-Drachten/aquarium/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a>.
+      </p>
+    </section>
+  </main>
+
+  <script src="maker.js"></script>
+</body>
+</html>

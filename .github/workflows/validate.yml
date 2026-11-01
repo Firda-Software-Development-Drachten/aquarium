@@ -25,5 +25,8 @@ jobs:
       - name: Vissen controleren
         run: python tools/validate_fish.py
 
+      - name: Vissenmaker vergelijken met options.json
+        run: python tools/check_maker.py
+
       - name: Tests draaien
         run: python -m unittest discover tools/tests

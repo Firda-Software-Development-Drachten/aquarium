@@ -1,0 +1,462 @@
+/* Vissenmaker
+   Het voorbeeld werkt met alleen CSS: :has() kijkt welk keuzerondje aan staat
+   en zet daarmee CSS-variabelen of stijlen op de vis. */
+
+/* ---------- Kleurtokens ---------- */
+:root {
+  --page-bg: #e8f4f8;
+  --panel-bg: #ffffff;
+  --text: #12303f;
+  --muted: #4b6573;
+  --accent: #0a6e8a;
+  --accent-hover: #08586f;
+  --accent-soft: #d5ecf3;
+  --accent-text: #ffffff;
+  --border: #c9dee6;
+  --focus: #ff8800;
+  --water-top: #6fd0f0;
+  --water-bottom: #0b5f8a;
+  --sand: #e9d8a6;
+  --code-bg: #f1f6f8;
+}
+
+/* ---------- Pagina ---------- */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--page-bg);
+  color: var(--text);
+  font-family: system-ui, sans-serif;
+  line-height: 1.5;
+  accent-color: var(--accent);
+  caret-color: var(--accent);
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-text);
+}
+
+a {
+  color: var(--accent);
+  text-underline-offset: 0.2em;
+}
+
+.maker {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 16px;
+  display: grid;
+  gap: 16px;
+}
+
+.intro h1 {
+  margin: 8px 0 0;
+  font-size: 2rem;
+  line-height: 1.2;
+}
+
+.intro p {
+  margin: 4px 0 0;
+  color: var(--muted);
+}
+
+/* Op een groter scherm: keuzes links, voorbeeld en resultaat rechts. */
+@media (min-width: 800px) {
+  .maker {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-areas:
+      "intro intro"
+      "choices tank"
+      "choices result";
+    grid-template-rows: auto auto 1fr;
+    align-items: start;
+    column-gap: 24px;
+  }
+  .intro { grid-area: intro; }
+  .choices { grid-area: choices; }
+  .tank { grid-area: tank; }
+  .result { grid-area: result; }
+}
+
+/* ---------- Formulier ---------- */
+/* Alle keuzes staan samen in één paneel, elke groep op een eigen rij. */
+.choices {
+  padding: 4px 16px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--panel-bg);
+}
+
+fieldset {
+  margin: 0;
+  padding: 14px 0;
+  border: none;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+fieldset:first-child {
+  border-top: none;
+}
+
+legend {
+  padding: 0;
+  margin-bottom: 4px;
+  font-weight: 700;
+}
+
+/* Op een breder scherm staat de naam van de groep links naast de keuzes. */
+@media (min-width: 520px) {
+  legend {
+    float: left;
+    width: 8.5rem;
+    margin: 0;
+  }
+}
+
+.fields {
+  flex: 1;
+  display: grid;
+  gap: 12px;
+}
+
+.field {
+  display: grid;
+  gap: 4px;
+}
+
+.field label {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 8px 10px;
+  font: inherit;
+  color: var(--text);
+  background: var(--page-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+input[type="text"]:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 1px;
+}
+
+/* Het rondje zelf verstoppen we, maar het blijft bruikbaar met toetsenbord
+   en schermlezer. Het label wordt de knop. */
+input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+
+input[type="radio"] + label {
+  padding: 6px 14px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color 150ms ease-out, border-color 150ms ease-out;
+}
+
+input[type="radio"] + label:hover {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+}
+
+input[type="radio"]:checked + label {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-text);
+}
+
+input[type="radio"]:focus-visible + label {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* Kleurrondjes: een gekleurd rondje, de naam van de kleur blijft voor schermlezers. */
+.swatches input[type="radio"] + label {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background: var(--swatch);
+  border-color: rgb(0 0 0 / 0.2);
+  overflow: hidden;
+  text-indent: 100%;
+  white-space: nowrap;
+}
+
+.swatches input[type="radio"]:checked + label,
+.swatches input[type="radio"] + label:hover {
+  background: var(--swatch);
+  border-color: rgb(0 0 0 / 0.2);
+  box-shadow: 0 0 0 2px var(--panel-bg), 0 0 0 4px var(--text);
+}
+
+/* ---------- Het aquarium-voorbeeld ---------- */
+.tank {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  height: 220px;
+  border-radius: 12px;
+  /* Water van licht naar donker, met een strookje zand op de bodem. */
+  background:
+    linear-gradient(transparent calc(100% - 16px), var(--sand) calc(100% - 16px)),
+    linear-gradient(var(--water-top), var(--water-bottom));
+  box-shadow: 0 6px 20px rgb(11 95 138 / 0.25);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  /* Op een smal scherm tekenen we de vis wat kleiner, zodat hij in de bak past. */
+  --tank-scale: 0.7;
+}
+
+@media (min-width: 520px) {
+  .tank {
+    height: 280px;
+    --tank-scale: 1;
+  }
+}
+
+@media (min-width: 800px) {
+  .tank {
+    top: 16px;
+    height: 340px;
+  }
+}
+
+/* Standaardwaarden van de vis. De regels hieronder passen ze aan. */
+.maker {
+  --body-color: #ff8800;
+  --fins-color: #ffffff;
+  --pattern-color: #222222;
+  --body-width: 150px;
+  --body-height: 120px;
+  --fish-size: 1;
+  --swim-time: 3s;
+}
+
+.fish {
+  display: flex;
+  align-items: center;
+  scale: calc(var(--fish-size) * var(--tank-scale));
+  animation: swim-calm var(--swim-time) ease-in-out infinite;
+}
+
+.fish-tail {
+  width: 60px;
+  height: 80px;
+  margin-right: -14px;
+  background: var(--fins-color);
+  clip-path: polygon(0 0, 100% 50%, 0 100%, 25% 50%);
+}
+
+.fish-body {
+  position: relative;
+  width: var(--body-width);
+  height: var(--body-height);
+}
+
+.fish-skin {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--body-color);
+}
+
+.fish-eye {
+  position: absolute;
+  right: 16%;
+  top: 30%;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 60% 50%, #111111 0 35%, #ffffff 38%);
+}
+
+/* Vinnen staan achter het lichaam (z-index -1). */
+.fish-fin {
+  position: absolute;
+  left: 35%;
+  z-index: -1;
+  width: 40px;
+  height: 26px;
+  background: var(--fins-color);
+}
+
+.fish-fin-top {
+  top: -14px;
+  border-radius: 100% 100% 0 0;
+}
+
+.fish-fin-bottom {
+  bottom: -12px;
+  border-radius: 0 0 100% 100%;
+}
+
+/* ---------- Keuzes koppelen aan het voorbeeld ---------- */
+
+/* Lichaam */
+.maker:has(#body-long:checked) {
+  --body-width: 230px;
+  --body-height: 80px;
+}
+
+/* Vinnen */
+.maker:has(#fins-pointy:checked) .fish-fin {
+  width: 60px;
+  height: 50px;
+  border-radius: 0;
+}
+
+.maker:has(#fins-pointy:checked) .fish-fin-top {
+  top: -40px;
+  clip-path: polygon(0 100%, 25% 0, 100% 100%);
+}
+
+.maker:has(#fins-pointy:checked) .fish-fin-bottom {
+  bottom: -36px;
+  clip-path: polygon(0 0, 100% 0, 15% 100%);
+}
+
+/* Patroon */
+.maker:has(#pattern-stripes:checked) .fish-skin {
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent 0 18px,
+    var(--pattern-color) 18px 30px
+  );
+}
+
+/* Grootte */
+.maker:has(#size-075:checked) { --fish-size: 0.75; }
+.maker:has(#size-150:checked) { --fish-size: 1.5; }
+
+/* Snelheid: hoe sneller de vis, hoe korter één zwembeweging duurt. */
+.maker:has(#speed-075:checked) { --swim-time: 4s; }
+.maker:has(#speed-150:checked) { --swim-time: 1.8s; }
+
+/* Gedrag */
+.maker:has(#behavior-curious:checked) .fish {
+  animation-name: swim-curious;
+}
+
+/* Kleur lichaam */
+.maker:has(#body-color-ff8800:checked) { --body-color: #ff8800; }
+.maker:has(#body-color-ffd23f:checked) { --body-color: #ffd23f; }
+.maker:has(#body-color-e63946:checked) { --body-color: #e63946; }
+.maker:has(#body-color-ff7eb6:checked) { --body-color: #ff7eb6; }
+.maker:has(#body-color-3a86ff:checked) { --body-color: #3a86ff; }
+.maker:has(#body-color-2bb673:checked) { --body-color: #2bb673; }
+.maker:has(#body-color-ffffff:checked) { --body-color: #ffffff; }
+.maker:has(#body-color-222222:checked) { --body-color: #222222; }
+
+/* Kleur vinnen */
+.maker:has(#fins-color-ff8800:checked) { --fins-color: #ff8800; }
+.maker:has(#fins-color-ffd23f:checked) { --fins-color: #ffd23f; }
+.maker:has(#fins-color-e63946:checked) { --fins-color: #e63946; }
+.maker:has(#fins-color-ff7eb6:checked) { --fins-color: #ff7eb6; }
+.maker:has(#fins-color-3a86ff:checked) { --fins-color: #3a86ff; }
+.maker:has(#fins-color-2bb673:checked) { --fins-color: #2bb673; }
+.maker:has(#fins-color-ffffff:checked) { --fins-color: #ffffff; }
+.maker:has(#fins-color-222222:checked) { --fins-color: #222222; }
+
+/* Kleur patroon */
+.maker:has(#pattern-color-ff8800:checked) { --pattern-color: #ff8800; }
+.maker:has(#pattern-color-ffd23f:checked) { --pattern-color: #ffd23f; }
+.maker:has(#pattern-color-e63946:checked) { --pattern-color: #e63946; }
+.maker:has(#pattern-color-ff7eb6:checked) { --pattern-color: #ff7eb6; }
+.maker:has(#pattern-color-3a86ff:checked) { --pattern-color: #3a86ff; }
+.maker:has(#pattern-color-2bb673:checked) { --pattern-color: #2bb673; }
+.maker:has(#pattern-color-ffffff:checked) { --pattern-color: #ffffff; }
+.maker:has(#pattern-color-222222:checked) { --pattern-color: #222222; }
+
+/* ---------- Zwembewegingen ---------- */
+@keyframes swim-calm {
+  0%, 100% { translate: 0 -8px; }
+  50% { translate: 0 8px; }
+}
+
+@keyframes swim-curious {
+  0%, 100% { translate: -30px 0; rotate: 0deg; }
+  25% { translate: 0 -10px; rotate: -6deg; }
+  50% { translate: 30px 0; rotate: 0deg; }
+  75% { translate: 0 10px; rotate: 6deg; }
+}
+
+/* Wie minder beweging wil, krijgt een stilstaande vis. */
+@media (prefers-reduced-motion: reduce) {
+  .fish {
+    animation: none;
+  }
+}
+
+/* ---------- Resultaat ---------- */
+.result {
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--panel-bg);
+}
+
+.result h2 {
+  margin-top: 0;
+}
+
+pre {
+  margin: 0;
+  padding: 12px;
+  max-width: 100%;
+  overflow-x: auto;
+  background: var(--code-bg);
+  border-radius: 8px;
+  font-size: 0.85rem;
+}
+
+.buttons {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+button {
+  padding: 8px 16px;
+  font: inherit;
+  font-weight: 700;
+  color: var(--accent-text);
+  background: var(--accent);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 150ms ease-out;
+}
+
+button:hover {
+  background: var(--accent-hover);
+}
+
+button:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+#message:empty {
+  display: none;
+}
+
+/* Zonder JavaScript blijft het codeblok leeg: dan verbergen we het. */
+pre:empty {
+  display: none;
+}
