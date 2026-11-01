@@ -8,9 +8,9 @@
 
 ## Checklist
 
-* \[ ] `python tools/validate\_fish.py` geeft `Alles klopt!`
-* \[ ] Ik heb alleen mijn voornaam of een bijnaam gebruikt
-* \[ ] Deze PR gaat over één onderwerp
+- [ ] `python tools/validate_fish.py` geeft `Alles klopt!`
+- [ ] Ik heb alleen mijn voornaam of een bijnaam gebruikt
+- [ ] Deze PR gaat over één onderwerp
 
 ## AI-gebruik
 
