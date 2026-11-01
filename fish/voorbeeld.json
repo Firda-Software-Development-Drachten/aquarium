@@ -1,0 +1,11 @@
+{
+  "name": "Voorbeeld",
+  "maker": "Firda",
+  "body": "round",
+  "fins": "pointy",
+  "pattern": "stripes",
+  "colors": { "body": "#ff8800", "fins": "#bb7711", "pattern": "#222222" },
+  "size": 1.0,
+  "speed": 1.5,
+  "behavior": "calm"
+}
