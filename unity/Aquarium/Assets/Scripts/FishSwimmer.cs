@@ -15,7 +15,7 @@ public class FishSwimmer : MonoBehaviour
     {
         if (behavior != "calm")
         {
-            // 'curious' is nog niet gebouwd: een mooi issue voor studenten.
+            // 'curious' is nog niet gebouwd
             Debug.LogWarning($"{name}: gedrag '{behavior}' bestaat nog niet, ik gebruik 'calm'.");
         }
         target = tank.RandomPoint();

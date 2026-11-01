@@ -553,6 +553,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FishFactory
   tank: {fileID: 1768054593}
+  fishMaterial: {fileID: 2100000, guid: fb9eef4fd382f4443ac55d5b5f306052, type: 2}
 --- !u!1 &1300356180
 GameObject:
   m_ObjectHideFlags: 0
@@ -709,7 +710,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1953c7206128128468f9df343e892904, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TankBounds
-  size: {x: 24, y: 7, z: 5}
+  size: {x: 24, y: 6.7, z: 5}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

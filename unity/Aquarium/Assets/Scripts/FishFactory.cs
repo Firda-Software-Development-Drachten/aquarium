@@ -10,6 +10,10 @@ public class FishFactory : MonoBehaviour
     [Tooltip("Het object Tank met het script TankBounds")]
     public TankBounds tank;
 
+    [Tooltip("Wit URP/Lit-materiaal voor alle vissen. Nodig voor de build: zonder " +
+             "dit materiaal laat Unity de shader weg en worden de vissen roze.")]
+    public Material fishMaterial;
+
     private static readonly int BaseColorId = Shader.PropertyToID("_BaseColor");
     private static readonly Color FallbackColor = Color.gray;
 
@@ -112,10 +116,18 @@ public class FishFactory : MonoBehaviour
         part.transform.localScale = scale;
         part.transform.localEulerAngles = rotation;
 
+        // Gebruik ons eigen materiaal. Het standaardmateriaal van CreatePrimitive
+        // werkt in de editor, maar zit niet in de WebGL-build.
+        Renderer partRenderer = part.GetComponent<Renderer>();
+        if (fishMaterial != null)
+            partRenderer.sharedMaterial = fishMaterial;
+        else
+            Debug.LogWarning("FishFactory: vul het veld 'Fish Material' in de Inspector.");
+
         // Kleur via een MaterialPropertyBlock: geen nieuw materiaal per vis.
         var block = new MaterialPropertyBlock();
         block.SetColor(BaseColorId, color);
-        part.GetComponent<Renderer>().SetPropertyBlock(block);
+        partRenderer.SetPropertyBlock(block);
     }
 
     private Color ParseColor(string hex, string fishId)
