@@ -9,7 +9,7 @@ using UnityEngine.Networking;
 // - In de WebGL-build: de fish.json die naast de build op de website staat
 public class FishLoader : MonoBehaviour
 {
-    // Andere scripts luisteren naar deze event om te weten dat er vissen geladen zijn.
+    // Andere scripts luisteren hiernaar, bijv. de FishFactory in stap 5.
     public event Action<FishData> FishLoaded;
 
     private IEnumerator Start()

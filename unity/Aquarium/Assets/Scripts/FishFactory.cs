@@ -7,11 +7,8 @@ using UnityEngine;
 [RequireComponent(typeof(FishLoader))]
 public class FishFactory : MonoBehaviour
 {
-    [Tooltip("Midden van de bak (het lege object Tank)")]
-    public Transform tank;
-
-    [Tooltip("Grootte van het gebied waarin vissen verschijnen")]
-    public Vector3 spawnArea = new Vector3(12f, 5f, 3f);
+    [Tooltip("Het object Tank met het script TankBounds")]
+    public TankBounds tank;
 
     private static readonly int BaseColorId = Shader.PropertyToID("_BaseColor");
     private static readonly Color FallbackColor = Color.gray;
@@ -26,7 +23,7 @@ public class FishFactory : MonoBehaviour
         // Leeg hoofdobject: hierop komen straks ook de zwemscripts.
         GameObject fish = new GameObject("Fish_" + data.id);
         fish.transform.SetParent(transform);
-        fish.transform.position = RandomSpawnPosition();
+        fish.transform.position = tank.RandomPoint();
 
         Color bodyColor = ParseColor(data.colors?.body, data.id);
         Color finColor = ParseColor(data.colors?.fins, data.id);
@@ -95,6 +92,12 @@ public class FishFactory : MonoBehaviour
         // Grootte uit het visbestand (0.75, 1.0 of 1.5).
         float size = data.size > 0f ? data.size : 1f;
         fish.transform.localScale = Vector3.one * size;
+
+        // Laat de vis zwemmen.
+        FishSwimmer swimmer = fish.AddComponent<FishSwimmer>();
+        swimmer.tank = tank;
+        swimmer.speed = data.speed > 0f ? data.speed : 1f;
+        swimmer.behavior = data.behavior;
     }
 
     // Maakt één onderdeel als kind van de vis, zonder collider, in de juiste kleur.
@@ -121,14 +124,5 @@ public class FishFactory : MonoBehaviour
             return color;
         Debug.LogWarning($"Vis '{fishId}': ongeldige kleur '{hex}', ik gebruik grijs.");
         return FallbackColor;
-    }
-
-    private Vector3 RandomSpawnPosition()
-    {
-        Vector3 center = tank != null ? tank.position : Vector3.zero;
-        return center + new Vector3(
-            Random.Range(-spawnArea.x, spawnArea.x) / 2f,
-            Random.Range(-spawnArea.y, spawnArea.y) / 2f,
-            Random.Range(-spawnArea.z, spawnArea.z) / 2f);
     }
 }
