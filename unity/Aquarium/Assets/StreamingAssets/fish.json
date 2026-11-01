@@ -1,0 +1,53 @@
+{
+  "generated": "2026-11-01T13:03:16Z",
+  "fish": [
+    {
+      "id": "billy",
+      "name": "Billy",
+      "maker": "Matthijs",
+      "body": "round",
+      "fins": "small",
+      "pattern": "stripes",
+      "colors": {
+        "body": "#8e44ad",
+        "fins": "#f1c40f",
+        "pattern": "#ffffff"
+      },
+      "size": 1.0,
+      "speed": 1.0,
+      "behavior": "calm"
+    },
+    {
+      "id": "lemon",
+      "name": "Lemon",
+      "maker": "Matthijs",
+      "body": "long",
+      "fins": "pointy",
+      "pattern": "none",
+      "colors": {
+        "body": "#f7e03c",
+        "fins": "#7cb342",
+        "pattern": "#000000"
+      },
+      "size": 0.75,
+      "speed": 1.5,
+      "behavior": "calm"
+    },
+    {
+      "id": "voorbeeld",
+      "name": "Voorbeeld",
+      "maker": "Firda",
+      "body": "round",
+      "fins": "pointy",
+      "pattern": "stripes",
+      "colors": {
+        "body": "#ff8800",
+        "fins": "#bb7711",
+        "pattern": "#222222"
+      },
+      "size": 1.0,
+      "speed": 1.5,
+      "behavior": "calm"
+    }
+  ]
+}

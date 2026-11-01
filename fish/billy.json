@@ -1,0 +1,11 @@
+{
+  "name": "Billy",
+  "maker": "Matthijs",
+  "body": "round",
+  "fins": "small",
+  "pattern": "stripes",
+  "colors": { "body": "#8e44ad", "fins": "#f1c40f", "pattern": "#ffffff" },
+  "size": 1.0,
+  "speed": 1.0,
+  "behavior": "calm"
+}

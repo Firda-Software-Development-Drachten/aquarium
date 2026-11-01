@@ -1,0 +1,11 @@
+{
+  "name": "Lemon",
+  "maker": "Matthijs",
+  "body": "long",
+  "fins": "pointy",
+  "pattern": "none",
+  "colors": { "body": "#f7e03c", "fins": "#7cb342", "pattern": "#000000" },
+  "size": 0.75,
+  "speed": 1.5,
+  "behavior": "calm"
+}
