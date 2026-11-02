@@ -39,10 +39,10 @@ function makeId(name) {
 }
 
 function showFish() {
+
   output.textContent = JSON.stringify(makeFish(), null, 2);
   message.textContent = "";
 
-  console.log("test");
 }
 
 async function copyFish() {
