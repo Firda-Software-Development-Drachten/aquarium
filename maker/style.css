@@ -460,3 +460,22 @@ button:focus-visible {
 pre:empty {
   display: none;
 }
+
+.random-button-container {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    font-size: 18px;
+
+}
+
+#random-button {
+
+
+  padding: 12px 24px;
+
+}

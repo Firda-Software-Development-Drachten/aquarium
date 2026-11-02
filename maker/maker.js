@@ -41,10 +41,38 @@ function makeId(name) {
 function showFish() {
   output.textContent = JSON.stringify(makeFish(), null, 2);
   message.textContent = "";
+
+  console.log("test");
 }
 
 async function copyFish() {
   await navigator.clipboard.writeText(output.textContent);
+}
+
+function getRandomInt(inclMax) {
+
+  return Math.round(Math.random() * inclMax);
+
+}
+
+async function randomFish() {
+
+  const fieldsets = document.querySelectorAll("fieldset");
+
+  fieldsets.forEach(fieldset => {
+
+      const inputs = fieldset.querySelectorAll("input");
+      if (inputs.length != 0) {
+
+          const randomInput = inputs[getRandomInt(inputs.length-1)];
+          randomInput.checked = true;
+
+      }
+
+  });
+
+  showFish();
+
 }
 
 function downloadFish() {
@@ -66,4 +94,5 @@ function downloadFish() {
 form.addEventListener("input", showFish);
 document.querySelector("#copy-button").addEventListener("click", copyFish);
 document.querySelector("#download-button").addEventListener("click", downloadFish);
+document.querySelector("#random-button").addEventListener("click", randomFish);
 showFish();
