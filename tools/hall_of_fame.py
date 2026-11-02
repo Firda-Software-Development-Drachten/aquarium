@@ -9,8 +9,6 @@ grouped = defaultdict(list) # Defaultdict dat automatisch default waardes aan ke
 fishList = []
 path = '../fish/'
 
-
-
 # Loop door het ../fish directory, opent elke bestand in utf-8 om de vereiste keywords af te lezen.
 for filename in glob.glob(os.path.join(path, '*.json')):
     with open(filename, encoding='utf-8') as currentFile:
@@ -19,7 +17,7 @@ for filename in glob.glob(os.path.join(path, '*.json')):
             "name": data.get("name"),
             "maker": data.get("maker")
         }
-        if fish is not None and fish not in fishList: # Validatie check voor het geval dat incorrect data wordt doorgebracht.
+        if fish is not None and fish not in fishList: # Validatie check voor het geval dat incorrect of niet-bestaande data wordt doorgebracht.
             fishList.append(fish)
         else:
             raise Exception("Er zijn geen vissen gevonden om toe te voegen.")
@@ -31,6 +29,7 @@ text = readme.read_text(encoding="utf-8") # README.md content aflezen in utf-8 f
 before, rest = text.split(start, 1) # Scheidt alles voor de start comment op
 _, after = rest.split(end, 1) # Scheidt alles na de start comment op
 
+# Voeg elke vis van een bepaalde maker onder de naam entry toe om het gegroepeerd te houden.
 for fish in fishList:
     grouped[fish["maker"]].append(fish["name"])
 
