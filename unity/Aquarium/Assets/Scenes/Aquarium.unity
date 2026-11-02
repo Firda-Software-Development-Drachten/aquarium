@@ -398,6 +398,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraDrift
   smoothTime: 0.5
   fishSwitchTime: 7.5
+  minY: -0.25
 --- !u!1 &601596146
 GameObject:
   m_ObjectHideFlags: 0

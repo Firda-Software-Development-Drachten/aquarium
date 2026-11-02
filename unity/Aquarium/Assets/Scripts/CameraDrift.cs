@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 public class CameraDrift: MonoBehaviour {
 
@@ -13,6 +14,7 @@ public class CameraDrift: MonoBehaviour {
 
     public float smoothTime = 0.5f;
     public float fishSwitchTime = 7.5f;
+    public float minY = -0.25f;
 
     void Start() {
 
@@ -55,7 +57,7 @@ public class CameraDrift: MonoBehaviour {
             }
 
             float xPos = Mathf.SmoothDamp(cameraPos.x, fishPos.x, ref xVelocity, currentSmoothTime);
-            float yPos = Mathf.SmoothDamp(cameraPos.y, fishPos.y, ref yVelocity, currentSmoothTime);
+            float yPos = Mathf.Clamp(Mathf.SmoothDamp(cameraPos.y, fishPos.y, ref yVelocity, currentSmoothTime), minY, Int32.MaxValue);
 
             transform.position = new Vector3(xPos, yPos, transform.position.z);
 
@@ -79,7 +81,7 @@ public class CameraDrift: MonoBehaviour {
 
         } else {
 
-            return fishList[Random.Range(0, fishList.Count)].gameObject;
+            return fishList[UnityEngine.Random.Range(0, fishList.Count)].gameObject;
 
         }
 
