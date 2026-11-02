@@ -1,0 +1,15 @@
+{
+  "name": "Dark Blue Moon",
+  "maker": "Akshay",
+  "body": "round",
+  "fins": "small",
+  "pattern": "none",
+  "colors": {
+    "body": "#3a86ff",
+    "fins": "#222222",
+    "pattern": "#222222"
+  },
+  "size": 1.5,
+  "speed": 1.5,
+  "behavior": "calm"
+}
