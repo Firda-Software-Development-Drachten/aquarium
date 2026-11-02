@@ -1,0 +1,15 @@
+{
+  "name": "RodeVis",
+  "maker": "Ivan",
+  "body": "round",
+  "fins": "small",
+  "pattern": "none",
+  "colors": {
+    "body": "#e63946",
+    "fins": "#e63946",
+    "pattern": "#ffd23f"
+  },
+  "size": 1,
+  "speed": 10,
+  "behavior": "curious"
+}
