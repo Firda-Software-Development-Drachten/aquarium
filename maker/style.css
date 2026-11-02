@@ -20,6 +20,30 @@
   --code-bg: #f1f6f8;
 }
 
+@media (prefers-color-scheme: dark) {
+
+    :root {
+      --page-bg: #232525;
+      --panel-bg: #393B3B;
+      --text: #D3D3D3;
+      --muted: #BDBEBE;
+      --accent: #0a6e8a;
+      --accent-hover: #08586f;
+      --accent-soft: #404749;
+      --accent-text: #ffffff;
+      --border: #7B7C7C;
+      --focus: #ff8800;
+      --water-top: #6fd0f0;
+      --water-bottom: #0b5f8a;
+      --sand: #e9d8a6;
+      --code-bg: #232525;
+    }
+
+
+}
+
+
+
 /* ---------- Pagina ---------- */
 * {
   box-sizing: border-box;
@@ -459,4 +483,23 @@ button:focus-visible {
 /* Zonder JavaScript blijft het codeblok leeg: dan verbergen we het. */
 pre:empty {
   display: none;
+}
+
+.random-button-container {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    font-size: 18px;
+
+}
+
+#random-button {
+
+
+  padding: 12px 24px;
+
 }
