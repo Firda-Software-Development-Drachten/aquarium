@@ -1,0 +1,15 @@
+{
+  "name": "fihcle",
+  "maker": "fickle",
+  "body": "long",
+  "fins": "pointy",
+  "pattern": "stripes",
+  "colors": {
+    "body": "#ff0044",
+    "fins": "#ababab",
+    "pattern": "#0ac6ff"
+  },
+  "size": 0.75,
+  "speed": 1.5,
+  "behavior": "curious"
+}
