@@ -14,8 +14,6 @@ async function loadOptions() {
   options = await response.json();
 }
 
-loadOptions();
-
 // Functie die controleert of waarde in opties staat
 function isValidOption(key, value) {
   return options[key].some(option => option.id === value);
