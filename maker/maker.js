@@ -24,11 +24,29 @@ function isValidOption(key, value) {
 // Functie die de URL uitleest en waarden in formulier zet
 function loadFromUrl() {
   const params = new URLSearchParams(window.location.search);
-  
+ 
   for (const key of ["body", "fins", "pattern", "behavior"]) {
     const value = params.get(key);
 
     if (value && isValidOption(key, value)) {
+      form.elements[key].value = value;
+    }
+  }
+
+  // Kleuren
+  for (const key of ["bodyColor", "finsColor", "patternColor"]) {
+    const value = params.get(key);
+
+    if (value && /^#[0-9a-f]{6}$/i.test(value)) {
+      form.elements[key].value = value;
+    }
+  }
+
+  // Grootte en snelheid
+  for (const key of ["size", "speed"]) {
+    const value = Number(params.get(key));
+
+    if (options[key].includes(value)) {
       form.elements[key].value = value;
     }
   }
@@ -37,7 +55,11 @@ function loadFromUrl() {
 // Functie die URL bijwerkt
 function updateUrl() {
   const params = new URLSearchParams(new FormData(form));
-
+  params.set("bodyColor", form.elements.bodyColor.value);
+  params.set("finsColor", form.elements.finsColor.value);
+  params.set("patternColor", form.elements.patternColor.value);
+  params.set("size", form.elements.size.value);
+  params.set("speed", form.elements.speed.value);
   history.replaceState(null, "", "?" + params.toString());
 }
 
