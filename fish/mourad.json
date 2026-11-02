@@ -1,0 +1,15 @@
+{
+  "name": "blob",
+  "maker": "Mourad",
+  "body": "round",
+  "fins": "small",
+  "pattern": "none",
+  "colors": {
+    "body": "#ff8800",
+    "fins": "#ff7eb6",
+    "pattern": "#ff8800"
+  },
+  "size": 1,
+  "speed": 0.75,
+  "behavior": "calm"
+}
