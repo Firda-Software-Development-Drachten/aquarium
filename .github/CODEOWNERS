@@ -1,0 +1,6 @@
+# Wijzigingen aan deze mappen moeten worden goedgekeurd door een docent.
+# Zet in de ruleset van main 'Require review from Code Owners' aan.
+/.github/  @Droefkalkoen
+/tools/    @Droefkalkoen
+/shared/   @Droefkalkoen
+/webgl/    @Droefkalkoen
