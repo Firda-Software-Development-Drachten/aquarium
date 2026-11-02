@@ -9,7 +9,7 @@
     "fins": "#e63946",
     "pattern": "#ffd23f"
   },
-  "size": 1,
-  "speed": 10,
+  "size": 1.5,
+  "speed": 1,
   "behavior": "curious"
 }
