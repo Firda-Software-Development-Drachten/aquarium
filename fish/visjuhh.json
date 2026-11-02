@@ -1,0 +1,15 @@
+{
+  "name": "Visjuhh",
+  "maker": "Silvan",
+  "body": "long",
+  "fins": "pointy",
+  "pattern": "stripes",
+  "colors": {
+    "body": "#ff7eb6",
+    "fins": "#e63946",
+    "pattern": "#222222"
+  },
+  "size": 1.5,
+  "speed": 0.75,
+  "behavior": "calm"
+}

@@ -5,7 +5,8 @@ Gebruik:
 
 Wat het doet:
 - alle vissen komen in site/fish.json (foute vissen worden overgeslagen)
-- shared/options.json wordt gekopieerd naar site/options.json
+- shared/options.json wordt gekopieerd naar site/options.json en naar
+  site/shared/options.json (daar zoekt de Vissenmaker hem, net als in de repo)
 - maker/ wordt gekopieerd naar site/maker/
 - de Unity WebGL-build in webgl/ komt in de root van site/;
   is webgl/ nog leeg, dan komt er een tijdelijke startpagina
@@ -90,6 +91,10 @@ def main():
     print(f"site/fish.json geschreven met {len(valid_fish)} vis(sen).")
 
     shutil.copy(OPTIONS_FILE, SITE_DIR / "options.json")
+    # De Vissenmaker haalt ../shared/options.json op. Zo werkt dat pad
+    # zowel in de repo als op de site.
+    (SITE_DIR / "shared").mkdir()
+    shutil.copy(OPTIONS_FILE, SITE_DIR / "shared" / "options.json")
 
     if MAKER_DIR.is_dir():
         copy_folder_contents(MAKER_DIR, SITE_DIR / "maker")
