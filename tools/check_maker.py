@@ -19,8 +19,12 @@ MAKER_FILE = ROOT / "maker" / "index.html"
 CHOICE_FIELDS = ["body", "fins", "pattern", "behavior"]
 # Keuzes die een getal zijn.
 NUMBER_FIELDS = ["size", "speed"]
-# Keuzerondjes voor kleuren: die moeten een kleur zijn zoals #ff8800.
-COLOR_FIELDS = ["bodyColor", "finsColor", "patternColor"]
+# De drie kleuren van een vis. De Vissenmaker kiest een kleur op een van twee manieren:
+# - keuzerondjes met name="bodyColor" en een kleur als waarde, zoals #ff8800
+# - drie schuifjes (tint, verzadiging, helderheid): name="bodyHue", "bodySat", "bodyValue"
+COLOR_PARTS = ["body", "fins", "pattern"]
+# Per schuifje: (achtervoegsel, min, max)
+COLOR_SLIDERS = [("Hue", "0", "360"), ("Sat", "0", "100"), ("Value", "0", "100")]
 
 
 class MakerParser(HTMLParser):
@@ -30,6 +34,7 @@ class MakerParser(HTMLParser):
         super().__init__()
         self.radios = {}  # name -> lijst met (id, value)
         self.text_inputs = {}  # name -> maxlength
+        self.ranges = {}  # name -> (min, max) van een schuifje
         self.labels = {}  # id van het invoerveld -> tekst van het label
         self.current_label = None
 
@@ -37,6 +42,8 @@ class MakerParser(HTMLParser):
         attrs = dict(attrs)
         if tag == "input" and attrs.get("type") == "radio":
             self.radios.setdefault(attrs.get("name"), []).append((attrs.get("id"), attrs.get("value")))
+        elif tag == "input" and attrs.get("type") == "range":
+            self.ranges[attrs.get("name")] = (attrs.get("min"), attrs.get("max"))
         elif tag == "input" and attrs.get("type") == "text":
             self.text_inputs[attrs.get("name")] = attrs.get("maxlength")
         elif tag == "label":
@@ -93,15 +100,32 @@ def check_numbers(field, options, parser):
 
 
 def check_colors(parser):
-    """Controleert dat elke kleur in de Vissenmaker een geldige kleur is."""
+    """Controleert dat elk onderdeel een kleurkeuze heeft: keuzerondjes of drie schuifjes."""
     errors = []
-    for field in COLOR_FIELDS:
-        values = [value for _, value in parser.radios.get(field, [])]
-        if not values:
-            errors.append(f"de Vissenmaker heeft geen keuzerondjes voor '{field}'")
-        for value in values:
-            if value is None or not COLOR_PATTERN.match(value):
-                errors.append(f"'{field}' heeft in de Vissenmaker de kleur '{value}', maar moet een kleur zijn zoals #ff8800")
+    for part in COLOR_PARTS:
+        radio_name = part + "Color"
+        values = [value for _, value in parser.radios.get(radio_name, [])]
+        sliders = [part + suffix for suffix, _, _ in COLOR_SLIDERS]
+
+        if values:
+            # Keuzerondjes: elke waarde moet een kleur zijn zoals #ff8800.
+            for value in values:
+                if value is None or not COLOR_PATTERN.match(value):
+                    errors.append(f"'{radio_name}' heeft in de Vissenmaker de kleur '{value}', maar moet een kleur zijn zoals #ff8800")
+        elif any(name in parser.ranges for name in sliders):
+            # Schuifjes: alle drie moeten er zijn, met het juiste bereik.
+            for suffix, low, high in COLOR_SLIDERS:
+                name = part + suffix
+                if name not in parser.ranges:
+                    errors.append(f"de Vissenmaker mist het schuifje '{name}'")
+                elif parser.ranges[name] != (low, high):
+                    found_low, found_high = parser.ranges[name]
+                    errors.append(f"het schuifje '{name}' loopt van {found_low} tot {found_high}, maar moet van {low} tot {high} lopen")
+        else:
+            errors.append(
+                f"de Vissenmaker heeft geen kleurkeuze voor '{part}': "
+                f"gebruik keuzerondjes '{radio_name}' of de schuifjes {', '.join(sliders)}"
+            )
     return errors
 
 
