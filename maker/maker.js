@@ -221,6 +221,10 @@ function downloadFish() {
     message.textContent = "Vul eerst de naam van je vis en je eigen naam in.";
     return;
   }
+  if (id === "") {
+    message.textContent = "De naam van je vis bestaat alleen uit vreemde tekens. Gebruik ook letters of cijfers.";
+    return;
+  }
   const file = new Blob([output.textContent + "\n"], { type: "application/json" });
   const link = document.createElement("a");
   link.href = URL.createObjectURL(file);
