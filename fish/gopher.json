@@ -1,0 +1,15 @@
+{
+  "name": "Gopher",
+  "maker": "IJsbrand",
+  "body": "round",
+  "fins": "small",
+  "pattern": "none",
+  "colors": {
+    "body": "#3a86ff",
+    "fins": "#ffd23f",
+    "pattern": "#222222"
+  },
+  "size": 1.5,
+  "speed": 1.5,
+  "behavior": "calm"
+}
