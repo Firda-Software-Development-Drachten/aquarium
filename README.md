@@ -1,11 +1,45 @@
-# aquarium
+# Aquarium
 
-Een interactief aquarium, gebouwd met studenten van Firda Drachten.
+Een interactief aquarium, gebouwd met studenten van Firda Drachten. Ontwerp een eigen vis en voeg die toe via een fork en een pull request. Zo leer je hoe je samenwerkt aan een open-sourceproject op GitHub.
 
+**Bekijk het aquarium:** [firda-software-development-drachten.github.io/aquarium](https://firda-software-development-drachten.github.io/aquarium/)
 
+**Ontwerp je vis:** [de Vissenmaker](https://firda-software-development-drachten.github.io/aquarium/maker/)
 
 Unity 6000.3.27f1 (LTS)
+
+## Hoe werkt het?
+
+1. Je ontwerpt een vis in de **Vissenmaker** en krijgt een visbestand in JSON.
+2. Je zet dat bestand in de map `fish/` en opent een **pull request**.
+3. Een automatische controle kijkt of je vis klopt. Daarna bekijkt een docent of medestudent je PR.
+4. Na de merge wordt de site opnieuw gebouwd en zwemt je vis in het **Unity-aquarium**.
 
 ## Doe mee
 
 Je eerste bijdrage: voeg je eigen vis toe met een fork en een pull request. Hoe dat werkt, lees je in [CONTRIBUTING.md](CONTRIBUTING.md).
+
+Heb je je eerste vis toegevoegd? Kijk dan bij de [issues](https://github.com/Firda-Software-Development-Drachten/aquarium/issues) voor een volgende taak om op te pakken. Je kunt het Unity-project aanvullen (C#), je kunt de validatie verbeteren (Python) of je kunt aan de Vissenmaker werken (HTML/CSS/JS).
+
+## Wat staat waar?
+
+| Map | Inhoud |
+| --- | --- |
+| `fish/` | Eén JSON-bestand per vis. Hier komt jouw vis. |
+| `shared/` | `options.json`: de lijst met toegestane keuzes voor een vis. Zie [shared/README.md](shared/README.md). |
+| `maker/` | De Vissenmaker (HTML, CSS en JavaScript). |
+| `tools/` | Python-scripts die vissen controleren en de site bouwen. |
+| `webgl/` | De Unity WebGL-build van het aquarium. |
+
+## Zelf controleren
+
+Je hebt alleen Python nodig, geen extra pakketten.
+
+```bash
+python tools/validate_fish.py   # klopt mijn vis?
+python tools/check_maker.py     # past de Vissenmaker bij options.json?
+```
+
+## Licentie
+
+[MIT](LICENSE)
