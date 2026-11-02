@@ -352,37 +352,6 @@ input[type="radio"]:focus-visible + label {
 .maker:has(#behavior-curious:checked) .fish {
   animation-name: swim-curious;
 }
-
-/* Kleur lichaam */
-.maker:has(#body-color-ff8800:checked) { --body-color: #ff8800; }
-.maker:has(#body-color-ffd23f:checked) { --body-color: #ffd23f; }
-.maker:has(#body-color-e63946:checked) { --body-color: #e63946; }
-.maker:has(#body-color-ff7eb6:checked) { --body-color: #ff7eb6; }
-.maker:has(#body-color-3a86ff:checked) { --body-color: #3a86ff; }
-.maker:has(#body-color-2bb673:checked) { --body-color: #2bb673; }
-.maker:has(#body-color-ffffff:checked) { --body-color: #ffffff; }
-.maker:has(#body-color-222222:checked) { --body-color: #222222; }
-
-/* Kleur vinnen */
-.maker:has(#fins-color-ff8800:checked) { --fins-color: #ff8800; }
-.maker:has(#fins-color-ffd23f:checked) { --fins-color: #ffd23f; }
-.maker:has(#fins-color-e63946:checked) { --fins-color: #e63946; }
-.maker:has(#fins-color-ff7eb6:checked) { --fins-color: #ff7eb6; }
-.maker:has(#fins-color-3a86ff:checked) { --fins-color: #3a86ff; }
-.maker:has(#fins-color-2bb673:checked) { --fins-color: #2bb673; }
-.maker:has(#fins-color-ffffff:checked) { --fins-color: #ffffff; }
-.maker:has(#fins-color-222222:checked) { --fins-color: #222222; }
-
-/* Kleur patroon */
-.maker:has(#pattern-color-ff8800:checked) { --pattern-color: #ff8800; }
-.maker:has(#pattern-color-ffd23f:checked) { --pattern-color: #ffd23f; }
-.maker:has(#pattern-color-e63946:checked) { --pattern-color: #e63946; }
-.maker:has(#pattern-color-ff7eb6:checked) { --pattern-color: #ff7eb6; }
-.maker:has(#pattern-color-3a86ff:checked) { --pattern-color: #3a86ff; }
-.maker:has(#pattern-color-2bb673:checked) { --pattern-color: #2bb673; }
-.maker:has(#pattern-color-ffffff:checked) { --pattern-color: #ffffff; }
-.maker:has(#pattern-color-222222:checked) { --pattern-color: #222222; }
-
 /* ---------- Zwembewegingen ---------- */
 @keyframes swim-calm {
   0%, 100% { translate: 0 -8px; }
@@ -450,6 +419,57 @@ button:hover {
 button:focus-visible {
   outline: 3px solid var(--focus);
   outline-offset: 2px;
+}
+
+input.hue,
+input.sat,
+input.shade {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 12px;
+  border-radius: 6px;
+}
+
+input.hue {
+  background: linear-gradient(to right,
+    hsl(0 100% 50%), hsl(60 100% 50%), hsl(120 100% 50%),
+    hsl(180 100% 50%), hsl(240 100% 50%), hsl(300 100% 50%), hsl(360 100% 50%));
+}
+
+/* Van grijs naar de volle kleur. */
+input.sat {
+  background: linear-gradient(to right, var(--sat-from, #ffffff), var(--sat-to, #ff0000));
+}
+
+/* Van zwart naar de heldere kleur. */
+input.shade {
+  background: linear-gradient(to right, #000000, var(--val-full, #ff0000));
+}
+
+input.hue::-webkit-slider-thumb,
+input.sat::-webkit-slider-thumb,
+input.shade::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--now, #ffffff);
+  border: 3px solid #fff;
+  box-shadow: 0 0 0 1px rgb(0 0 0 / .3);
+  cursor: pointer;
+}
+
+input.hue::-moz-range-thumb,
+input.sat::-moz-range-thumb,
+input.shade::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--now, #ffffff);
+  border: 3px solid #fff;
+  box-shadow: 0 0 0 1px rgb(0 0 0 / .3);
+  cursor: pointer;
 }
 
 #message:empty {

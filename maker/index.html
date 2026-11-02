@@ -67,69 +67,26 @@
         <label for="pattern-none">Geen</label>
         <input type="radio" name="pattern" id="pattern-stripes" value="stripes">
         <label for="pattern-stripes">Strepen</label>
-      </fieldset>
+          <fieldset>
+            <legend>Kleur lichaam</legend>
+            <input type="range" class="hue" name="bodyHue" min="0" max="360" value="33" aria-label="Tint lichaam">
+            <input type="range" class="sat" name="bodySat" min="0" max="100" value="85" aria-label="Verzadiging lichaam">
+            <input type="range" class="shade" name="bodyValue" min="0" max="100" value="100" aria-label="Helderheid lichaam">
+          </fieldset>
 
-        <fieldset class="swatches">
-          <legend>Kleur lichaam</legend>
-          <input type="radio" name="bodyColor" id="body-color-ff8800" value="#ff8800" checked>
-          <label for="body-color-ff8800" style="--swatch: #ff8800">Oranje</label>
-          <input type="radio" name="bodyColor" id="body-color-ffd23f" value="#ffd23f">
-          <label for="body-color-ffd23f" style="--swatch: #ffd23f">Geel</label>
-          <input type="radio" name="bodyColor" id="body-color-e63946" value="#e63946">
-          <label for="body-color-e63946" style="--swatch: #e63946">Rood</label>
-          <input type="radio" name="bodyColor" id="body-color-ff7eb6" value="#ff7eb6">
-          <label for="body-color-ff7eb6" style="--swatch: #ff7eb6">Roze</label>
-          <input type="radio" name="bodyColor" id="body-color-3a86ff" value="#3a86ff">
-          <label for="body-color-3a86ff" style="--swatch: #3a86ff">Blauw</label>
-          <input type="radio" name="bodyColor" id="body-color-2bb673" value="#2bb673">
-          <label for="body-color-2bb673" style="--swatch: #2bb673">Groen</label>
-          <input type="radio" name="bodyColor" id="body-color-ffffff" value="#ffffff">
-          <label for="body-color-ffffff" style="--swatch: #ffffff">Wit</label>
-          <input type="radio" name="bodyColor" id="body-color-222222" value="#222222">
-          <label for="body-color-222222" style="--swatch: #222222">Zwart</label>
-        </fieldset>
+          <fieldset>
+            <legend>Kleur vinnen</legend>
+            <input type="range" class="hue" name="finsHue" min="0" max="360" value="200" aria-label="Tint vinnen">
+            <input type="range" class="sat" name="finsSat" min="0" max="100" value="0" aria-label="Verzadiging vinnen">
+            <input type="range" class="shade" name="finsValue" min="0" max="100" value="100" aria-label="Helderheid vinnen">
+          </fieldset>
 
-        <fieldset class="swatches">
-          <legend>Kleur vinnen</legend>
-          <input type="radio" name="finsColor" id="fins-color-ff8800" value="#ff8800">
-          <label for="fins-color-ff8800" style="--swatch: #ff8800">Oranje</label>
-          <input type="radio" name="finsColor" id="fins-color-ffd23f" value="#ffd23f">
-          <label for="fins-color-ffd23f" style="--swatch: #ffd23f">Geel</label>
-          <input type="radio" name="finsColor" id="fins-color-e63946" value="#e63946">
-          <label for="fins-color-e63946" style="--swatch: #e63946">Rood</label>
-          <input type="radio" name="finsColor" id="fins-color-ff7eb6" value="#ff7eb6">
-          <label for="fins-color-ff7eb6" style="--swatch: #ff7eb6">Roze</label>
-          <input type="radio" name="finsColor" id="fins-color-3a86ff" value="#3a86ff">
-          <label for="fins-color-3a86ff" style="--swatch: #3a86ff">Blauw</label>
-          <input type="radio" name="finsColor" id="fins-color-2bb673" value="#2bb673">
-          <label for="fins-color-2bb673" style="--swatch: #2bb673">Groen</label>
-          <input type="radio" name="finsColor" id="fins-color-ffffff" value="#ffffff" checked>
-          <label for="fins-color-ffffff" style="--swatch: #ffffff">Wit</label>
-          <input type="radio" name="finsColor" id="fins-color-222222" value="#222222">
-          <label for="fins-color-222222" style="--swatch: #222222">Zwart</label>
-        </fieldset>
-
-        <fieldset class="swatches">
-          <legend>Kleur patroon</legend>
-          <input type="radio" name="patternColor" id="pattern-color-ff8800" value="#ff8800">
-          <label for="pattern-color-ff8800" style="--swatch: #ff8800">Oranje</label>
-          <input type="radio" name="patternColor" id="pattern-color-ffd23f" value="#ffd23f">
-          <label for="pattern-color-ffd23f" style="--swatch: #ffd23f">Geel</label>
-          <input type="radio" name="patternColor" id="pattern-color-e63946" value="#e63946">
-          <label for="pattern-color-e63946" style="--swatch: #e63946">Rood</label>
-          <input type="radio" name="patternColor" id="pattern-color-ff7eb6" value="#ff7eb6">
-          <label for="pattern-color-ff7eb6" style="--swatch: #ff7eb6">Roze</label>
-          <input type="radio" name="patternColor" id="pattern-color-3a86ff" value="#3a86ff">
-          <label for="pattern-color-3a86ff" style="--swatch: #3a86ff">Blauw</label>
-          <input type="radio" name="patternColor" id="pattern-color-2bb673" value="#2bb673">
-          <label for="pattern-color-2bb673" style="--swatch: #2bb673">Groen</label>
-          <input type="radio" name="patternColor" id="pattern-color-ffffff" value="#ffffff">
-          <label for="pattern-color-ffffff" style="--swatch: #ffffff">Wit</label>
-          <input type="radio" name="patternColor" id="pattern-color-222222" value="#222222" checked>
-          <label for="pattern-color-222222" style="--swatch: #222222">Zwart</label>
-        </fieldset>
-
-      <fieldset>
+          <fieldset>
+            <legend>Kleur patroon</legend>
+            <input type="range" class="hue" name="patternHue" min="0" max="360" value="280" aria-label="Tint patroon">
+            <input type="range" class="sat" name="patternSat" min="0" max="100" value="0" aria-label="Verzadiging patroon">
+            <input type="range" class="shade" name="patternValue" min="0" max="100" value="13" aria-label="Helderheid patroon">
+          </fieldset>
         <legend>Grootte</legend>
         <input type="radio" name="size" id="size-075" value="0.75">
         <label for="size-075">Klein</label>
