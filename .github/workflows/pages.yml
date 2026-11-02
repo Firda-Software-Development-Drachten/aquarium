@@ -1,0 +1,58 @@
+# Bouwt de site en zet hem op GitHub Pages na elke push naar main.
+# Alleen bij wijzigingen aan de vissen, de opties, de Vissenmaker, de WebGL-build of de tools.
+name: pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "fish/**"
+      - "shared/**"
+      - "maker/**"
+      - "webgl/**"
+      - "tools/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Nooit twee deploys tegelijk
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Code ophalen
+        uses: actions/checkout@v5
+
+      - name: Python instellen
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Site bouwen
+        run: python tools/build_site.py
+
+      - name: Pages instellen
+        uses: actions/configure-pages@v5
+
+      - name: Site uploaden
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publiceren op GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
