@@ -1,0 +1,15 @@
+{
+  "name": "Greeny",
+  "maker": "Joshua",
+  "body": "round",
+  "fins": "small",
+  "pattern": "stripes",
+  "colors": {
+    "body": "#2bb673",
+    "fins": "#222222",
+    "pattern": "#ff8800"
+  },
+  "size": 1,
+  "speed": 1,
+  "behavior": "calm"
+}
