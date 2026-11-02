@@ -40,6 +40,16 @@ python tools/validate_fish.py   # klopt mijn vis?
 python tools/check_maker.py     # past de Vissenmaker bij options.json?
 ```
 
+## Hall of Fame
+<!-- hall-of-fame:start -->
+### Matthijs 
+- Billy- Lemon
+### Firda 
+- Voorbeeld
+### Akshay 
+- Dark Blue Moon
+<!-- hall-of-fame:end -->
+
 ## Licentie
 
 [MIT](LICENSE)
