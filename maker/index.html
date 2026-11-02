@@ -67,6 +67,8 @@
         <label for="pattern-none">Geen</label>
         <input type="radio" name="pattern" id="pattern-stripes" value="stripes">
         <label for="pattern-stripes">Strepen</label>
+      </fieldset>
+
           <fieldset>
             <legend>Kleur lichaam</legend>
             <input type="range" class="hue" name="bodyHue" min="0" max="360" value="33" aria-label="Tint lichaam">
@@ -87,6 +89,8 @@
             <input type="range" class="sat" name="patternSat" min="0" max="100" value="0" aria-label="Verzadiging patroon">
             <input type="range" class="shade" name="patternValue" min="0" max="100" value="13" aria-label="Helderheid patroon">
           </fieldset>
+
+      <fieldset>
         <legend>Grootte</legend>
         <input type="radio" name="size" id="size-075" value="0.75">
         <label for="size-075">Klein</label>
@@ -112,6 +116,11 @@
         <label for="behavior-calm">Rustig</label>
         <input type="radio" name="behavior" id="behavior-curious" value="curious">
         <label for="behavior-curious">Nieuwsgierig</label>
+      </fieldset>
+      <fieldset>
+          <div class="random-button-container">
+              <button type="button" id="random-button">Willekeurige vis</button>
+          </div>
       </fieldset>
     </form>
 
