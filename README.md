@@ -12,7 +12,7 @@ Unity 6000.3.27f1 (LTS)
 
 1. Je ontwerpt een vis in de **Vissenmaker** en krijgt een visbestand in JSON.
 2. Je zet dat bestand in de map `fish/` en opent een **pull request**.
-3. Een automatische controle kijkt of je vis klopt. Daarna bekijkt een docent of medestudent je PR.
+3. Een automatische controle kijkt of je vis klopt. Daarna bekijkt een docent je PR.
 4. Na de merge wordt de site opnieuw gebouwd en zwemt je vis in het **Unity-aquarium**.
 
 ## Doe mee
