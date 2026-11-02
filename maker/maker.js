@@ -5,6 +5,42 @@ const form = document.querySelector("#fish-form");
 const output = document.querySelector("#fish-json");
 const message = document.querySelector("#message");
 
+// Options aanmaken
+let options;
+
+// Lijst met toegestane waarden uit options.json
+async function loadOptions() {
+  const response = await fetch("../shared/options.json")
+  options = await response.json();
+}
+
+loadOptions();
+
+// Functie die controleert of waarde in opties staat
+function isValidOption(key, value) {
+  return options[key].some(option => option.id === value);
+}
+
+// Functie die de URL uitleest en waarden in formulier zet
+function loadFromUrl() {
+  const params = new URLSearchParams(window.location.search);
+  
+  for (const key of ["body", "fins", "pattern", "behavior"]) {
+    const value = params.get(key);
+
+    if (value && isValidOption(key, value)) {
+      form.elements[key].value = value;
+    }
+  }
+}
+
+// Functie die URL bijwerkt
+function updateUrl() {
+  const params = new URLSearchParams(new FormData(form));
+
+  history.replaceState(null, "", "?" + params.toString());
+}
+
 // Maakt een visobject in precies het formaat van een bestand in fish/.
 function makeFish() {
   const data = new FormData(form);
@@ -40,6 +76,8 @@ function makeId(name) {
 
 function showFish() {
   output.textContent = JSON.stringify(makeFish(), null, 2);
+  // URL update functie
+  updateUrl();
   message.textContent = "";
 }
 
@@ -66,4 +104,9 @@ function downloadFish() {
 form.addEventListener("input", showFish);
 document.querySelector("#copy-button").addEventListener("click", copyFish);
 document.querySelector("#download-button").addEventListener("click", downloadFish);
-showFish();
+
+// Eerst keuzes inladen
+loadOptions().then(() => {
+  loadFromUrl();
+  showFish();
+})
