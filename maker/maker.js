@@ -5,64 +5,6 @@ const form = document.querySelector("#fish-form");
 const output = document.querySelector("#fish-json");
 const message = document.querySelector("#message");
 
-// Options aanmaken
-let options;
-
-// Lijst met toegestane waarden uit options.json
-async function loadOptions() {
-  const response = await fetch("../shared/options.json")
-  options = await response.json();
-}
-
-loadOptions();
-
-// Functie die controleert of waarde in opties staat
-function isValidOption(key, value) {
-  return options[key].some(option => option.id === value);
-}
-
-// Functie die de URL uitleest en waarden in formulier zet
-function loadFromUrl() {
-  const params = new URLSearchParams(window.location.search);
- 
-  for (const key of ["body", "fins", "pattern", "behavior"]) {
-    const value = params.get(key);
-
-    if (value && isValidOption(key, value)) {
-      form.elements[key].value = value;
-    }
-  }
-
-  // Kleuren
-  for (const key of ["bodyColor", "finsColor", "patternColor"]) {
-    const value = params.get(key);
-
-    if (value && /^#[0-9a-f]{6}$/i.test(value)) {
-      form.elements[key].value = value;
-    }
-  }
-
-  // Grootte en snelheid
-  for (const key of ["size", "speed"]) {
-    const value = Number(params.get(key));
-
-    if (options[key].includes(value)) {
-      form.elements[key].value = value;
-    }
-  }
-}
-
-// Functie die URL bijwerkt
-function updateUrl() {
-  const params = new URLSearchParams(new FormData(form));
-  params.set("bodyColor", form.elements.bodyColor.value);
-  params.set("finsColor", form.elements.finsColor.value);
-  params.set("patternColor", form.elements.patternColor.value);
-  params.set("size", form.elements.size.value);
-  params.set("speed", form.elements.speed.value);
-  history.replaceState(null, "", "?" + params.toString());
-}
-
 // Maakt een visobject in precies het formaat van een bestand in fish/.
 function makeFish() {
   const data = new FormData(form);
@@ -85,6 +27,10 @@ function makeFish() {
 
 // Maakt een id van de naam: "Kleine Bubbel!" wordt "kleine-bubbel".
 function makeId(name) {
+  if(name.trim() === "" || /^[^a-zA-Z0-9]+$/.test(name)){
+    alert("Je naam kan geen gebruik maken van speciale tekens en wordt daardoor ook verwijdert");
+    return "";
+  }
   return name
     .toLowerCase()
     .normalize("NFD")
@@ -97,56 +43,27 @@ function makeId(name) {
 }
 
 function showFish() {
-
   output.textContent = JSON.stringify(makeFish(), null, 2);
-  // URL update functie
-  updateUrl();
   message.textContent = "";
-
 }
 
 async function copyFish() {
   await navigator.clipboard.writeText(output.textContent);
 }
 
-function getRandomInt(inclMax) {
-
-  return Math.round(Math.random() * inclMax);
-
-}
-
-async function randomFish() {
-
-  const fieldsets = document.querySelectorAll("fieldset");
-
-  fieldsets.forEach(fieldset => {
-
-      const inputs = fieldset.querySelectorAll("input");
-      if (inputs.length != 0) {
-
-          const randomInput = inputs[getRandomInt(inputs.length-1)];
-          randomInput.checked = true;
-
-      }
-
-  });
-
-  showFish();
-
-}
-
 function downloadFish() {
   const fish = makeFish();
   const id = makeId(fish.name);
-  if (fish.name === "" || fish.maker === "") {
-    message.textContent = "Vul eerst de naam van je vis en je eigen naam in.";
-    return;
-  }
   const file = new Blob([output.textContent + "\n"], { type: "application/json" });
   const link = document.createElement("a");
   link.href = URL.createObjectURL(file);
   link.download = id + ".json";
-  link.click();
+  if (fish.name === "" || fish.maker === "" || id === "") {
+    message.textContent = "Vul eerst de naam van je vis en je eigen naam in.";
+    return;
+  }else {
+    link.click();
+  }
   URL.revokeObjectURL(link.href);
   message.textContent = `Gedownload als ${id}.json. Zet dit bestand in de map fish/.`;
 }
@@ -154,10 +71,4 @@ function downloadFish() {
 form.addEventListener("input", showFish);
 document.querySelector("#copy-button").addEventListener("click", copyFish);
 document.querySelector("#download-button").addEventListener("click", downloadFish);
-document.querySelector("#random-button").addEventListener("click", randomFish);
-
-// Eerst keuzes inladen
-loadOptions().then(() => {
-  loadFromUrl();
-  showFish();
-})
+showFish();
