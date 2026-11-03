@@ -7,7 +7,10 @@ from collections import defaultdict
 
 grouped = defaultdict(list) # Defaultdict dat automatisch default waardes aan keys kan geven.
 fishList = []
-path = '../fish/'
+ROOT = Path(__file__).resolve().parent.parent
+path, readme = ROOT / "fish", ROOT / "README.md"
+
+
 
 # Loop door het ../fish directory, opent elke bestand in utf-8 om de vereiste keywords af te lezen.
 for filename in glob.glob(os.path.join(path, '*.json')):
@@ -17,12 +20,11 @@ for filename in glob.glob(os.path.join(path, '*.json')):
             "name": data.get("name"),
             "maker": data.get("maker")
         }
-        if fish is not None and fish not in fishList: # Validatie check voor het geval dat incorrect of niet-bestaande data wordt doorgebracht.
+        if fish not in fishList: # Validatie check voor het geval dat incorrect of niet-bestaande data wordt doorgebracht.
             fishList.append(fish)
         else:
             raise Exception("Er zijn geen vissen gevonden om toe te voegen.")
 
-readme = Path("../README.md")
 start, end = "<!-- hall-of-fame:start -->", "<!-- hall-of-fame:end -->"
 
 text = readme.read_text(encoding="utf-8") # README.md content aflezen in utf-8 formaat.
