@@ -29,10 +29,13 @@ CHOICE_FIELDS = ["body", "fins", "pattern", "behavior"]
 NUMBER_FIELDS = ["size", "speed"]
 
 # Hier worden de namen van bestanden gecontroleerd met 'regular expressions'
-# Een file mag alleen letters en cijfers bevatten en tussen de 1 tot 30 tekens hebben.
+# Een bestandsnaam mag alleen kleine letters, cijfers en '-' bevatten en 1 tot 30 tekens hebben.
 # Een color pattern is een hexadecimaal, bijvoorbeeld #ff26ab
 FILE_ID_PATTERN = re.compile(r"^[a-z0-9-]{1,30}$")
 COLOR_PATTERN = re.compile(r"^#[0-9a-fA-F]{6}$")
+
+# Bestanden in fish/ die geen vis zijn en dus niet gecontroleerd worden.
+IGNORED_FISH_FILES = {".gitkeep", ".DS_Store", "Thumbs.db", "desktop.ini"}
 
 
 def load_options(path=OPTIONS_FILE):
@@ -156,7 +159,10 @@ def check_unique_names(fish_by_file):
             continue
         key = name.strip().lower()
         if key in seen:
-            errors[filename] = f"{filename}: de naam '{name}' wordt al gebruikt in {seen[key]}, kies een andere naam"
+            errors[filename] = (
+                f"{filename}: de naam '{name}' staat in {seen[key]} én in {filename}. "
+                "Twee vissen mogen niet dezelfde naam hebben: geef de vis die jij hebt toegevoegd een andere naam"
+            )
         else:
             seen[key] = filename
     return errors
@@ -166,7 +172,8 @@ def load_fish_file(path):
     """Leest een visbestand. Geeft (data, fouten) terug."""
     filename = show_path(path)
     try:
-        with open(path, encoding="utf-8") as file:
+        # utf-8-sig: werkt ook als Kladblok een onzichtbaar BOM-teken vooraan zet.
+        with open(path, encoding="utf-8-sig") as file:
             return json.load(file), []
     except json.JSONDecodeError as error:
         return None, [f"{filename}: geen geldige JSON (regel {error.lineno}, kolom {error.colno}): {error.msg}"]
@@ -186,6 +193,13 @@ def validate_files(paths, options):
     loaded = {}
     for path in sorted(paths):
         filename = show_path(path)
+        if Path(path).suffix != ".json":
+            # Bijvoorbeeld goudvis.json.txt: Windows verbergt vaak de echte extensie.
+            errors.append(
+                f"{filename}: dit bestand eindigt niet op .json en komt dus niet in het aquarium. "
+                "Hernoem het, bijvoorbeeld naar goudvis.json"
+            )
+            continue
         file_errors = validate_file_name(filename)
         data, load_errors = load_fish_file(path)
         file_errors += load_errors
@@ -216,7 +230,8 @@ def main(arguments):
     if arguments:
         paths = [Path(argument) for argument in arguments]
     else:
-        paths = list(FISH_DIR.glob("*.json"))
+        # Alle bestanden, niet alleen *.json: zo vallen ook bestanden als goudvis.json.txt op.
+        paths = [path for path in FISH_DIR.iterdir() if path.is_file() and path.name not in IGNORED_FISH_FILES]
 
     if not paths:
         print("Geen visbestanden gevonden in fish/.")
