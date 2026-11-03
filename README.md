@@ -43,7 +43,8 @@ python tools/check_maker.py     # past de Vissenmaker bij options.json?
 ## Hall of Fame
 <!-- hall-of-fame:start -->
 ### Matthijs 
-- Billy- Lemon
+- Billy
+- Lemon
 ### Firda 
 - Voorbeeld
 ### Akshay 
