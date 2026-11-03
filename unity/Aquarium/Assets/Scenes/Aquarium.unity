@@ -396,8 +396,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f07f0f5d28132e4fad2d1de1cd23ae6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraDrift
-  smoothTime: 0.5
-  fishSwitchTime: 7.5
+  smoothTime: 1
+  fishSwitchTime: 12.5
   minY: -0.25
 --- !u!1 &601596146
 GameObject:
@@ -571,6 +571,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FishFactory
   tank: {fileID: 1768054593}
   fishMaterial: {fileID: 2100000, guid: fb9eef4fd382f4443ac55d5b5f306052, type: 2}
+  fishList: []
 --- !u!1 &1300356180
 GameObject:
   m_ObjectHideFlags: 0
@@ -727,7 +728,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1953c7206128128468f9df343e892904, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TankBounds
-  size: {x: 24, y: 6.7, z: 5}
+  size: {x: 24, y: 6, z: 5}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

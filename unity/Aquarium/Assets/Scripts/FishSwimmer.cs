@@ -10,7 +10,7 @@ public class FishSwimmer : MonoBehaviour
     public float speed = 1f;           // uit het visbestand: 0.75, 1.0 of 1.5
     public string behavior = "calm";
 
-    private const float BaseSpeed = 0.25f;
+    private const float BaseSpeed = 0.2f;
     private Vector3 target;
 
     private Vector3 startPoint;
