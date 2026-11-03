@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections.Generic;
 using System;
 
 public class CameraDrift: MonoBehaviour {
@@ -31,9 +30,15 @@ public class CameraDrift: MonoBehaviour {
             GameObject newFish = null;
             do { 
 
-                newFish = GetRandomFish(); 
+                newFish = fishFactory.GetRandomFish(); 
 
-            } while (newFish == currentFish && currentFish != null);
+            } while (
+
+                currentFish != null &&
+                newFish == currentFish &&
+                fishFactory.fishList.Count > 1
+
+            );
 
             currentFish = newFish;
             timer = 0.0f;
@@ -65,26 +70,5 @@ public class CameraDrift: MonoBehaviour {
 
     }
 
-    GameObject GetRandomFish() {
-
-        List<Transform> fishList = new List<Transform>();
-
-        foreach (Transform fish in fishFactory.transform) {
-
-            fishList.Add(fish);
-
-        }
-
-        if (fishList.Count == 0) {
-
-            return null;
-
-        } else {
-
-            return fishList[UnityEngine.Random.Range(0, fishList.Count)].gameObject;
-
-        }
-
-    }
 
 }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 // Bouwt een vis uit simpele vormen zodra de FishLoader een vis meldt.
 // Zet dit script op hetzelfde GameObject als de FishLoader.
@@ -14,11 +15,14 @@ public class FishFactory : MonoBehaviour
              "dit materiaal laat Unity de shader weg en worden de vissen roze.")]
     public Material fishMaterial;
 
+    public List<GameObject> fishList;
+
     private static readonly int BaseColorId = Shader.PropertyToID("_BaseColor");
     private static readonly Color FallbackColor = Color.gray;
 
     private void Awake()
     {
+        fishList = new List<GameObject>();
         GetComponent<FishLoader>().FishLoaded += BuildFish;
     }
 
@@ -28,6 +32,8 @@ public class FishFactory : MonoBehaviour
         GameObject fish = new GameObject("Fish_" + data.id);
         fish.transform.SetParent(transform);
         fish.transform.position = tank.RandomPoint();
+
+        fishList.Add(fish);
 
         Color bodyColor = ParseColor(data.colors?.body, data.id);
         Color finColor = ParseColor(data.colors?.fins, data.id);
@@ -136,5 +142,20 @@ public class FishFactory : MonoBehaviour
             return color;
         Debug.LogWarning($"Vis '{fishId}': ongeldige kleur '{hex}', ik gebruik grijs.");
         return FallbackColor;
+    }
+
+    public GameObject GetRandomFish() 
+    {
+
+        if (fishList.Count == 0) {
+
+            return null;
+
+        } else {
+
+            return fishList[UnityEngine.Random.Range(0, fishList.Count)].gameObject;
+
+        }
+
     }
 }
