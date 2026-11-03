@@ -1,10 +1,8 @@
 using System;
 using UnityEngine;
-using UnityPipeline.Microsoft.CodeAnalysis.Text;
 
 // Laat een vis rustig rondzwemmen binnen de bak.
 // De vis kiest een willekeurig doel, zwemt ernaartoe en kiest dan een nieuw doel.
-
 
 public class FishSwimmer : MonoBehaviour
 {
@@ -12,7 +10,7 @@ public class FishSwimmer : MonoBehaviour
     public float speed = 1f;           // uit het visbestand: 0.75, 1.0 of 1.5
     public string behavior = "calm";
 
-    private const float BaseSpeed = 0.5f;   // meter per seconde bij speed 1.0
+    private const float BaseSpeed = 0.25f;
     private Vector3 target;
 
     private Vector3 startPoint;
