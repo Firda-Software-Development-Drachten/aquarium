@@ -45,10 +45,28 @@ python tools/check_maker.py     # past de Vissenmaker bij options.json?
 ### Matthijs 
 - Billy
 - Lemon
-### Firda 
-- Voorbeeld
+### Michael 
+- Boris Johnson
+### Bram 
+- Bram
 ### Akshay 
 - Dark Blue Moon
+### fickle 
+- fihcle
+### IJsbrand 
+- Gopher
+### Joshua 
+- Greeny
+### Mourad 
+- blob
+### Ivan 
+- RodeVis
+### Silvan 
+- Visjuhh
+### Firda 
+- Voorbeeld
+### Yok 
+- white
 <!-- hall-of-fame:end -->
 
 ## Licentie
