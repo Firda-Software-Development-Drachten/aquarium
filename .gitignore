@@ -27,6 +27,7 @@ unity/Aquarium/.consulo/
 *.csproj
 *.unityproj
 *.sln
+*.slnx
 *.suo
 *.tmp
 *.user
