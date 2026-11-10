@@ -1,0 +1,15 @@
+{
+  "name": "Silvis",
+  "maker": "Silvana",
+  "body": "round",
+  "fins": "pointy",
+  "pattern": "stripes",
+  "colors": {
+    "body": "#ebb5d1",
+    "fins": "#000000",
+    "pattern": "#b07994"
+  },
+  "size": 0.75,
+  "speed": 1.5,
+  "behavior": "curious"
+}
