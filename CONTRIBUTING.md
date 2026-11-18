@@ -4,6 +4,18 @@ In dit project leer je hoe je bijdraagt aan een open-sourceproject met een **for
 
 ## Je eerste bijdrage: voeg je vis toe
 
+Er zijn twee routes. Met de **snelle route** doe je alles in de browser. Met de **route met clone en branch** werk je zoals in een echt project, met Git op je eigen computer. Die heb je later nodig voor andere taken.
+
+## Snelle route: Stuur in via GitHub
+
+1. Ontwerp je vis in de [Vissenmaker](https://firda-software-development-drachten.github.io/aquarium/maker/) en vul de naam van je vis en je eigen naam in.
+2. Klik op **Stuur in via GitHub**. GitHub opent een nieuw bestand `fish/<naam-van-je-vis>.json`, al ingevuld. Log zo nodig eerst in.
+3. Klik rechtsboven op **Commit changes** en daarna op **Propose changes**. GitHub maakt zelf een fork en een branch voor je.
+4. Klik op **Create pull request**. Vul het formulier in en klik nog een keer op **Create pull request**.
+5. Ga verder bij [8. Verwerk de feedback](#8-verwerk-de-feedback).
+
+## Route met clone en branch
+
 ### 1. Fork de repository
 
 Ga naar [github.com/Firda-Software-Development-Drachten/aquarium](https://github.com/Firda-Software-Development-Drachten/aquarium) en klik rechtsboven op **Fork**. Je krijgt nu je eigen kopie van het project onder je eigen account.
@@ -29,9 +41,9 @@ Bijvoorbeeld: `git checkout -b vis-bubbel`.
 
 ### 4. Maak je vis
 
-1. Kopieer de voorbeeldvis in de map `fish/`.
-2. Geef de kopie de naam van je vis: alleen kleine letters, cijfers en `-`, bijvoorbeeld `fish/goudvis.json`.
-3. Pas de waarden aan. Welke keuzes er zijn, zie je in [`shared/options.json`](shared/options.json) en de uitleg in [`shared/README.md`](shared/README.md).
+1. Ontwerp je vis in de [Vissenmaker](https://firda-software-development-drachten.github.io/aquarium/maker/) en klik op **Downloaden**. Of kopieer het voorbeeld hieronder.
+2. Zet het bestand in de map `fish/` met de naam van je vis: alleen kleine letters, cijfers en `-`, bijvoorbeeld `fish/goudvis.json`.
+3. Pas zo nodig de waarden aan. Welke keuzes er zijn, zie je in [`shared/options.json`](shared/options.json) en de uitleg in [`shared/README.md`](shared/README.md).
 
 ```json
 {
