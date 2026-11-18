@@ -18,11 +18,16 @@ Op de open dag ontwerpen bezoekers een vis in de Vissenmaker en sturen die in me
 - [ ] Settings > Secrets and variables > Actions > Variables:
   - `OPENDAG_ACCOUNT` = de naam van het open-dagaccount
   - `OPENDAG_AUTOMERGE` = `uit` (op de open dag zelf: `aan`)
-- [ ] Controleer de ruleset van `main`: een goedkeuring door GitHub Actions moet meetellen, en de controle `validate` moet kunnen slagen.
+- [ ] Controleer de ruleset van `main` (Settings > Rules > Rulesets > Bescherm main):
+  - een goedkeuring door GitHub Actions moet meetellen voor de verplichte goedkeuring;
+  - zet **Require review from Code Owners** aan: zonder die regel kan elke goedkeuring ook wijzigingen in `.github/` en `tools/` goedkeuren (`fish/` staat niet in CODEOWNERS, dus de open dag werkt dan nog steeds);
+  - maak `validate` gerust een verplichte controle. `opendag-automerge` wacht tot die klaar is.
+- [ ] Settings > Actions > General > "Approval for running fork pull request workflows": een eerste PR van een nieuw account wacht op goedkeuring. Bij "first-time contributors" is het open-dagaccount na één gemergede PR klaar.
 
 ## Op de open dag
 
 - Zet `OPENDAG_AUTOMERGE` 's ochtends op `aan` en na afloop weer op `uit`.
 - Pull requests van andere accounts blijven gewoon wachten op een docent.
 - Een naam met een scheldwoord wordt afgekeurd, al in de Vissenmaker en daarna in de controle. In `shared/scheldwoorden.json` staan alleen hashes. Een woord toevoegen: `python tools/scheldwoorden.py voeg-toe <woord>`. Testen: `python tools/scheldwoorden.py test "<naam>"`. De leesbare lijsten staan buiten de repo, in `scheldwoorden-bron`.
+- Komen er veel vissen tegelijk binnen, dan wordt elke PR apart gecontroleerd en samengevoegd. Een vis die niet automatisch is samengevoegd, staat gewoon open: kijk bij **Actions > opendag-automerge** waarom.
 - Loop aan het eind van de dag even door de nieuwe vissen. Draai zo nodig een merge terug.
