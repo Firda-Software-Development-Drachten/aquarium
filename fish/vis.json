@@ -1,0 +1,15 @@
+{
+  "name": "vis",
+  "maker": "naam",
+  "body": "long",
+  "fins": "small",
+  "pattern": "stripes",
+  "colors": {
+    "body": "#cfcfcf",
+    "fins": "#333333",
+    "pattern": "#3d3d42"
+  },
+  "size": 0.75,
+  "speed": 0.75,
+  "behavior": "calm"
+}
