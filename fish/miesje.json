@@ -1,0 +1,15 @@
+{
+  "name": "miesje",
+  "maker": "eurmenizer",
+  "body": "round",
+  "fins": "pointy",
+  "pattern": "stripes",
+  "colors": {
+    "body": "#0000ff",
+    "fins": "#00ff00",
+    "pattern": "#ff0000"
+  },
+  "size": 2.5,
+  "speed": 3.0,
+  "behavior": "curious"
+}
