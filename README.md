@@ -4,7 +4,11 @@ Een interactief aquarium, gebouwd met studenten van Firda Drachten. Ontwerp een 
 
 **Bekijk het aquarium:** [firda-software-development-drachten.github.io/aquarium](https://firda-software-development-drachten.github.io/aquarium/)
 
+![Screenshot van het aquarium met verschillende vissen](docs/aquarium-screenshot.png "Een interactief aquarium met kleurrijke vissen")
+
 **Ontwerp je vis:** [de Vissenmaker](https://firda-software-development-drachten.github.io/aquarium/maker/)
+
+![Screenshot van de Vissenmaker interface](docs/vissenmaker-screenshot.png "De tool om je eigen vis te ontwerpen")
 
 Unity 6000.3.27f1 (LTS)
 
