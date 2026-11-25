@@ -10,6 +10,7 @@ Exitcode 0 als alles klopt, 1 als er fouten zijn.
 import json
 import re
 import sys
+import difflib
 from pathlib import Path
 
 from scheldwoorden import contains_bad_word
@@ -115,7 +116,6 @@ def validate_colors(colors, filename):
 # De scheldwoorden (als hashes) worden één keer ingelezen.
 BLOCKED_WORDS = load_bad_words()
 
-
 def validate_fish(data, options, filename):
     """Controleert één vis en geeft een lijst met foutmeldingen terug.
 
@@ -143,8 +143,30 @@ def validate_fish(data, options, filename):
         if field not in data:
             continue
         allowed = [option["id"] for option in options[field]]
-        if data[field] not in allowed:
-            errors.append(f"{filename}: '{field}' is '{data[field]}', maar moet een van deze zijn: {', '.join(allowed)}")
+
+        # Herbouwen CHOICE_FIELDS loop met suggesties voor typfouten met gebruik van difflib.get_close_matches()
+        value = data[field]
+        if value not in allowed:
+            # Zoekt naar matches in options.json
+            suggestions = difflib.get_close_matches(
+                value,
+                allowed,
+                n=1,
+                cutoff=0.6
+            )
+
+            # Wanneer er een typfout is en er een suggestie is
+            if suggestions:
+                errors.append(
+                    f"{filename}: '{field}' is '{value}', maar moet een van deze zijn: "
+                    f"{', '.join(allowed)}. Bedoelde je '{suggestions[0]}'?"
+                )
+            # Wanneer er een typfout is zonder suggestie
+            else:
+                errors.append(
+                    f"{filename}: '{field}' is '{value}', maar moet een van deze zijn: "
+                    f"{', '.join(allowed)}"
+                )
 
     for field in NUMBER_FIELDS:
         if field not in data:
