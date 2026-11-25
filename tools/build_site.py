@@ -15,6 +15,8 @@ Wat het doet:
 import json
 import shutil
 import sys
+from pathlib import Path
+from stats import count_stats
 from datetime import datetime, timezone
 
 from validate_fish import FISH_DIR, OPTIONS_FILE, ROOT, load_options, validate_files
@@ -48,6 +50,8 @@ PLACEHOLDER_PAGE = """<!doctype html>
 </body>
 </html>
 """
+
+
 
 
 def has_webgl_build():
@@ -89,6 +93,18 @@ def main():
         print(f"Waarschuwing, overgeslagen: {message}")
     write_fish_json(valid_fish)
     print(f"site/fish.json geschreven met {len(valid_fish)} vis(sen).")
+
+    if SITE_DIR.is_dir():
+        try:
+            (ROOT / "site" / "stats.json").write_text(
+                json.dumps(count_stats(), indent=4),
+                encoding="utf-8"
+            )
+            print("stats.json succesvol geschreven met alle vissen.")
+        except FileNotFoundError:
+            print("Het bestand 'site/stats.json' is niet gevonden.")
+        else:
+            print("Er is iets fout gegaan bij het schrijven naar `site/stats.json`.")
 
     shutil.copy(OPTIONS_FILE, SITE_DIR / "options.json")
     # De Vissenmaker haalt ../shared/options.json op. Zo werkt dat pad

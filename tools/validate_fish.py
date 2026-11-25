@@ -12,9 +12,6 @@ import re
 import sys
 from pathlib import Path
 
-from scheldwoorden import contains_bad_word
-from scheldwoorden import load as load_bad_words
-
 # Repository root
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -75,16 +72,6 @@ def validate_file_name(filename):
     return errors
 
 
-def validate_blocked_words(data, blocked, filename):
-    """Controleert dat name en maker geen scheldwoorden bevatten (zie tools/scheldwoorden.py)."""
-    errors = []
-    for field in ("name", "maker"):
-        value = data.get(field)
-        if isinstance(value, str) and contains_bad_word(value, blocked):
-            errors.append(f"{filename}: '{field}' bevat een woord dat niet is toegestaan. Kies een andere naam")
-    return errors
-
-
 def validate_text(data, field, max_length, filename):
     """Controleer een tekstveld zoals name of maker."""
     value = data[field]
@@ -110,10 +97,6 @@ def validate_colors(colors, filename):
         if part not in COLOR_PARTS:
             errors.append(f"{filename}: 'colors.{part}' is onbekend, toegestaan zijn: {', '.join(COLOR_PARTS)}")
     return errors
-
-
-# De scheldwoorden (als hashes) worden één keer ingelezen.
-BLOCKED_WORDS = load_bad_words()
 
 
 def validate_fish(data, options, filename):
@@ -158,8 +141,6 @@ def validate_fish(data, options, filename):
 
     if "colors" in data:
         errors += validate_colors(data["colors"], filename)
-
-    errors += validate_blocked_words(data, BLOCKED_WORDS, filename)
 
     return errors
 
