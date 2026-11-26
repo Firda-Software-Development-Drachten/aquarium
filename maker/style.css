@@ -520,21 +520,57 @@ pre:empty {
   display: none;
 }
 
-.random-button-container {
+.control-buttons-container {
 
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: stretch;
     width: 100%;
     margin-top: 8px;
     margin-bottom: 8px;
     font-size: 18px;
+    gap: 8px;
+
+}
+
+#random-button, #reset-button {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
 }
 
 #random-button {
 
-
-  padding: 12px 24px;
+    flex: 6;
+    padding: 12px 24px;
 
 }
+
+@keyframes spin {
+
+    from { rotate: 0deg; }
+    to { rotate: 360deg; }
+
+}
+
+#reset-button {
+
+    flex: 1;
+    padding: 12px 8px;
+
+}
+
+#reset-button:focus svg {
+
+    animation: spin 0.5s ease-in-out;
+
+}
+
+#reset-button:active svg {
+
+    animation: none;
+
+}
+

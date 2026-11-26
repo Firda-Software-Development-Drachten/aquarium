@@ -214,6 +214,12 @@ async function randomFish() {
 
 }
 
+function resetFish() {
+
+    setTimeout(() => { showFish() }, 10)
+
+}
+
 // ---------- Scheldwoorden ----------
 // In ../shared/scheldwoorden.json staan alleen hashes van de woorden, niet de woorden zelf.
 // Deze controle werkt precies zoals tools/scheldwoorden.py.
@@ -311,6 +317,7 @@ async function downloadFish() {
 }
 
 form.addEventListener("input", showFish);
+form.addEventListener("reset", resetFish);
 document.querySelector("#copy-button").addEventListener("click", copyFish);
 document.querySelector("#download-button").addEventListener("click", downloadFish);
 document.querySelector("#random-button").addEventListener("click", randomFish);
