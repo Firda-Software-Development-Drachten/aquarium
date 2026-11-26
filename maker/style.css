@@ -548,10 +548,29 @@ pre:empty {
 
 }
 
+@keyframes spin {
+
+    from { rotate: 0deg; }
+    to { rotate: 360deg; }
+
+}
+
 #reset-button {
 
     flex: 1;
     padding: 12px 8px;
+
+}
+
+#reset-button:focus svg {
+
+    animation: spin 0.5s ease-in-out;
+
+}
+
+#reset-button:active svg {
+
+    animation: none;
 
 }
 
